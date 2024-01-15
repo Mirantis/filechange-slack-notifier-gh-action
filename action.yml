@@ -1,0 +1,47 @@
+# action.yml
+name: "Filechange Slack Notifier"
+description: "This action allows the user to send custom Slack notifications based on repo path changes"
+branding:
+  icon: "bell"
+  color: "orange"
+inputs:
+  slack-webhook-url:
+    description: "The Slack Webhook Url to use"
+    required: true
+    default: ""
+    type: string
+  slack-channel-name:
+    description: "The Slack channel name where to post the message to"
+    required: true
+    default: ""
+    type: string
+  message-title:
+    description: "Message to send in the channel"
+    required: true
+    default: ""
+    type: string
+  message:
+    description: "Message to send in the channel"
+    required: false
+    default: ""
+    type: string
+  notify-users:
+    description: "Comma delimeted users to be notified in the channel"
+    required: false
+    default: ""
+    type: string
+  message-color:
+    description: "Color to use in hex format"
+    required: false
+    default: "#FF0000"
+    type: string
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - ${{ inputs.slack-webhook-url }}
+    - ${{ inputs.slack-channel-name }}
+    - ${{ inputs.message-title }}
+    - ${{ inputs.message }}
+    - ${{ inputs.notify-users }}
+    - ${{ inputs.message-color }}
